@@ -1,4 +1,3 @@
 package com.asdf.todo.repository;
 
-public class TodoInMemoryRepository {
-}
+public class TodoInMemoryRepository {}

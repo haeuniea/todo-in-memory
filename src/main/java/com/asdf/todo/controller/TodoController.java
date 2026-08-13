@@ -1,4 +1,3 @@
 package com.asdf.todo.controller;
 
-public class TodoController {
-}
+public class TodoController {}
