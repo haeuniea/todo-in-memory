@@ -22,14 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/todos/v1")
 public class TodoController {
 
-    @Autowired
-    private TodoService todoService;
+    @Autowired private TodoService todoService;
 
     @GetMapping
     @Operation(summary = "전체 작업 조회", description = "전체 작업 조회")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "성공"),
-            @ApiResponse(responseCode = "204", description = "내용 없음")
+        @ApiResponse(responseCode = "200", description = "성공"),
+        @ApiResponse(responseCode = "204", description = "내용 없음")
     })
     public ResponseEntity<List<Todo>> getAllTodos() {
         List<Todo> todos = todoService.findAll();
@@ -42,8 +41,8 @@ public class TodoController {
     @GetMapping("/{id}")
     @Operation(summary = "작업 조회", description = "ID로 작업 조회")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "성공"),
-            @ApiResponse(responseCode = "404", description = "작업 없음")
+        @ApiResponse(responseCode = "200", description = "성공"),
+        @ApiResponse(responseCode = "404", description = "작업 없음")
     })
     public ResponseEntity<Todo> getTodoById(@PathVariable Long id) {
         Todo todo = todoService.findById(id);
@@ -55,9 +54,7 @@ public class TodoController {
 
     @PostMapping
     @Operation(summary = "작업 생성", description = "새로운 작업 생성")
-    @ApiResponses({
-            @ApiResponse(responseCode = "201", description = "생성됨")
-    })
+    @ApiResponses({@ApiResponse(responseCode = "201", description = "생성됨")})
     public ResponseEntity<Todo> createTodo(@RequestBody Todo todo) {
         return ResponseEntity.status(201).body(todoService.save(todo));
     }
@@ -65,11 +62,10 @@ public class TodoController {
     @PutMapping("/{id}")
     @Operation(summary = "작업 수정", description = "ID로 작업 수정")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "성공"),
-            @ApiResponse(responseCode = "404", description = "작업 없음")
+        @ApiResponse(responseCode = "200", description = "성공"),
+        @ApiResponse(responseCode = "404", description = "작업 없음")
     })
-    public ResponseEntity<Todo> updateTodo(@PathVariable Long id,
-                                           @RequestBody Todo todo) {
+    public ResponseEntity<Todo> updateTodo(@PathVariable Long id, @RequestBody Todo todo) {
         Todo existingTodo = todoService.findById(id);
         if (existingTodo == null) {
             return ResponseEntity.notFound().build();
@@ -80,8 +76,8 @@ public class TodoController {
     @DeleteMapping("/{id}")
     @Operation(summary = "작업 삭제", description = "ID로 작업 삭제")
     @ApiResponses({
-            @ApiResponse(responseCode = "204", description = "내용 없음"),
-            @ApiResponse(responseCode = "404", description = "작업 없음")
+        @ApiResponse(responseCode = "204", description = "내용 없음"),
+        @ApiResponse(responseCode = "404", description = "작업 없음")
     })
     public ResponseEntity<Void> deleteTodo(@PathVariable Long id) {
         Todo todo = todoService.findById(id);
