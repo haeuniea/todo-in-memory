@@ -10,7 +10,7 @@ Controller → Service → Repository 계층 구조와 REST API의 기본적인 
 - Java 21
 - Spring Boot 4.1.0
 - Gradle
-- Spring MVC
+- Spring Web MVC
 - Lombok
 - Springdoc OpenAPI (Swagger)
 - JUnit 5
@@ -73,25 +73,38 @@ Todo의 ID는 `AtomicLong`을 이용하여 자동으로 생성합니다.
 
 ## 실행 방법
 
-### 1. 프로젝트 빌드
+### WSL2 환경에서 실행
 
-프로젝트 루트 디렉토리에서 다음 명령어를 실행합니다.
+WSL2 터미널에서 프로젝트 디렉토리로 이동합니다.
+
+```bash
+cd ~/eog-springboot4/todo-in-memory
+```
+
+프로젝트를 빌드합니다.
+
+```bash
+gradle build
+```
+
+애플리케이션을 실행합니다.
+
+```bash
+gradle bootRun
+```
+
+### Gradle Wrapper를 이용한 실행
+
+별도의 Gradle 설치 없이 프로젝트에 포함된 Gradle Wrapper를 이용하여 실행할 수도 있습니다.
 
 ```bash
 ./gradlew clean build
-```
-
-### 2. 애플리케이션 실행
-
-```bash
 ./gradlew bootRun
 ```
 
-애플리케이션이 정상적으로 실행되면 기본적으로 다음 주소에서 서버가 실행됩니다.
+애플리케이션 실행 후 Swagger UI 또는 REST API 엔드포인트를 통해 기능을 확인할 수 있습니다.
 
-```text
-http://localhost:8080
-```
+> 루트 경로(`/`)는 별도의 엔드포인트를 제공하지 않습니다.
 
 ## Swagger UI
 
@@ -101,7 +114,7 @@ http://localhost:8080
 http://localhost:8080/swagger-ui/index.html
 ```
 
-OpenAPI 문서는 다음 엔드포인트에서 확인할 수 있습니다.
+OpenAPI 명세는 다음 엔드포인트에서 확인할 수 있습니다.
 
 ```text
 http://localhost:8080/v3/api-docs
