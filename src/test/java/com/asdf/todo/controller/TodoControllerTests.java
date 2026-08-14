@@ -13,8 +13,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -22,11 +22,9 @@ import org.springframework.test.web.servlet.MockMvc;
 @WebMvcTest(TodoController.class)
 public class TodoControllerTests {
 
-    @Autowired
-    private MockMvc mockMvc;
+    @Autowired private MockMvc mockMvc;
 
-    @MockitoBean
-    private TodoService todoService;
+    @MockitoBean private TodoService todoService;
 
     @Test
     public void testGetTodoById() throws Exception {
@@ -36,8 +34,7 @@ public class TodoControllerTests {
 
         given(todoService.findById(1L)).willReturn(todo);
 
-        mockMvc
-                .perform(get("/api/todos/v1/1").accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/api/todos/v1/1").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1L))
                 .andExpect(jsonPath("$.title").value("Test Todo"));
@@ -47,15 +44,14 @@ public class TodoControllerTests {
     public void testGetAllTodos() throws Exception {
         given(todoService.findAll()).willReturn(Collections.emptyList());
 
-        mockMvc
-                .perform(get("/api/todos/v1").accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/api/todos/v1").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
 
         given(todoService.findAll())
-                .willReturn(Collections.singletonList(new Todo(1L, "Test Todo", "Description", false)));
+                .willReturn(
+                        Collections.singletonList(new Todo(1L, "Test Todo", "Description", false)));
 
-        mockMvc
-                .perform(get("/api/todos/v1").accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/api/todos/v1").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").value(1L))
                 .andExpect(jsonPath("$[0].title").value("Test Todo"));
@@ -69,8 +65,7 @@ public class TodoControllerTests {
 
         given(todoService.save(any(Todo.class))).willReturn(todo);
 
-        mockMvc
-                .perform(
+        mockMvc.perform(
                         post("/api/todos/v1")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content("{\"title\": \"New Todo\",  \"completed\": false}"))
@@ -92,8 +87,7 @@ public class TodoControllerTests {
         given(todoService.findById(1L)).willReturn(existingTodo);
         given(todoService.update(anyLong(), any(Todo.class))).willReturn(updatedTodo);
 
-        mockMvc
-                .perform(
+        mockMvc.perform(
                         put("/api/todos/v1/1")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content("{\"title\": \"Updated Todo\", \"completed\": true}"))
@@ -110,8 +104,7 @@ public class TodoControllerTests {
 
         given(todoService.findById(1L)).willReturn(todo);
 
-        mockMvc
-                .perform(delete("/api/todos/v1/1").accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(delete("/api/todos/v1/1").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
     }
 }
