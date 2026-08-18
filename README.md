@@ -75,20 +75,14 @@ Todo의 ID는 `AtomicLong`을 이용하여 자동으로 생성합니다.
 
 ### WSL2 환경에서 실행
 
-WSL2 터미널에서 프로젝트 디렉토리로 이동합니다.
+WSL2 터미널에서 프로젝트 디렉토리로 이동하여 빌드합니다.
 
 ```bash
 cd ~/eog-springboot4/todo-in-memory
-```
-
-프로젝트를 빌드합니다.
-
-```bash
 gradle build
 ```
 
 애플리케이션을 실행합니다.
-
 ```bash
 gradle bootRun
 ```
